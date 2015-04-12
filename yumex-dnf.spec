@@ -1,0 +1,112 @@
+%global appname yumex
+
+Name:     %{appname}-dnf
+Version:  4.1.0
+Release:  1%{?dist}
+Summary:  Yum Extender graphical package management tool
+
+Group:    Applications/System
+License:  GPLv2+
+URL:      http://yumex.dk
+Source0:  https://github.com/timlau/yumex-dnf/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+
+BuildArch: noarch
+BuildRequires: desktop-file-utils
+BuildRequires: gettext
+BuildRequires: intltool
+BuildRequires: python3-devel
+
+Requires: python3-dnfdaemon >= 0.3.3
+Requires: python3-gobject >= 3.10
+Requires: python3-pyxdg
+Requires: python3-dbus
+Requires: python3-cairo
+
+%description
+Graphical package tool for maintain packages on the system
+
+
+%prep
+%setup -q
+
+
+%build
+make %{?_smp_mflags}
+
+
+%install
+make install PYTHON=%{__python3} DESTDIR=%{buildroot} DATADIR=%{_datadir}
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-local.desktop
+
+%find_lang %name
+
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+update-desktop-database %{_datadir}/applications &> /dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+update-desktop-database %{_datadir}/applications &> /dev/null || :
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
+
+%files -f  %{name}.lang
+%doc README.md COPYING
+%{_datadir}/%{name}
+%{_bindir}/%{name}
+%{python3_sitelib}/*
+%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/
+%{_datadir}/dbus-1/services/*
+%{_datadir}/appdata/*.xml
+
+%changelog
+* Sun Apr 12 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.1.0-1
+- bumped release to 4.1.0
+
+* Sat Apr 11 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.0.10-3
+- fixed changelog versioning
+
+* Thu Apr 9 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.0.10-1
+- bumped release to 4.0.10
+
+* Tue Apr 7 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.0.9-1
+- bumped release to 4.0.9
+
+* Tue Oct 21 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.8-1
+- bumped release to 4.0.8
+- require python3-dnfdaemon >= 0.3.3
+
+* Sun Sep 21 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.7-1
+- bumped release to 4.0.7
+
+* Tue Sep 02 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.6-1
+- bumped release to 4.0.6
+
+* Fri Jun 06 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.5-1
+- bumped release to 4.0.5
+- Requires: python3-dnfdaemon-client >= 0.2.2
+
+* Fri May 09 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.4-1
+- bumped release to 4.0.4
+- Requires: python3-dnfdaemon-client >= 0.2.0
+
+* Sat May 03 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.3-1
+- bumped release to 4.0.3
+- Requires: python3-dnfdaemon >= 0.1.5
+
+* Tue Apr 01 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.2-1
+- bumped release to 4.0.2
+- Requires: python3-dnfdaemon >= 0.1.4
+
+* Sat Mar 29 2014 Tim Lauridsen <timlau@fedoraproject.org> 4.0.1-1
+- bumped release to 4.0.1
+
+* Sun Sep 15 2013 Tim Lauridsen <timlau@fedoraproject.org> 3.99.1-1
+- Initial rpm build
+
