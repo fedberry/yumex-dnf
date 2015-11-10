@@ -2,7 +2,7 @@
 
 Name:     %{appname}-dnf
 Version:  4.1.4
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Yum Extender graphical package management tool
 
 Group:    Applications/System
@@ -66,6 +66,9 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 %{_datadir}/appdata/*.xml
 
 %changelog
+* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
 
 * Wed Sep 30 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.1.4-1
 - bumped release to 4.1.4
