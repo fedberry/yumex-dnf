@@ -1,7 +1,7 @@
 %global appname yumex
 
 Name:     %{appname}-dnf
-Version:  4.1.6
+Version:  4.3.3
 Release:  1%{?dist}
 Summary:  Yum Extender graphical package management tool
 
@@ -59,22 +59,25 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 %files -f  %{name}.lang
 %doc README.md COPYING
 %{_datadir}/%{name}
-%{_bindir}/%{name}
+%{_bindir}/%{name}*
 %{python3_sitelib}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/
-%{_datadir}/dbus-1/services/*
 %{_datadir}/appdata/*.xml
 
 %changelog
-* Thu Mar 17 2016 Björn Esser <fedora@besser82.io> - 4.1.6-1
-- bumped release to 4.1.6 (fixes #1279992, #1289824)
 
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+* Wed May 11 2016 Tim Lauridsen <timlau@fedoraproject.org> 4.3.3-1
+- bumped release to 4.3.3 (dev)
 
-* Wed Nov 18 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.1.5-1
-- bumped release to 4.1.5
+* Tue Apr 26 2016 Tim Lauridsen <timlau@fedoraproject.org> 4.3.2-1
+- bumped release to 4.3.2 (dev)
+
+* Wed Dec 9 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.3.1-1
+- bumped release to 4.3.1 (dev)
+
+* Tue Dec 1 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.3.0-1
+- bumped release to 4.3.0 (dev)
 
 * Wed Sep 30 2015 Tim Lauridsen <timlau@fedoraproject.org> 4.1.4-1
 - bumped release to 4.1.4
@@ -137,3 +140,4 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 
 * Sun Sep 15 2013 Tim Lauridsen <timlau@fedoraproject.org> 3.99.1-1
 - Initial rpm build
+
