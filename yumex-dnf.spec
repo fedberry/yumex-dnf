@@ -1,14 +1,17 @@
+%global     commit c110fa1efee9582f98da752db28ec59f10596fe4
+%global     commit_short %(c=%{commit}; echo ${c:0:7})
+
 %global appname yumex
 
 Name:     %{appname}-dnf
 Version:  4.3.3
-Release:  2%{?dist}
+Release:  3.%{commit_short}%{?dist}
 Summary:  Yum Extender graphical package management tool
 
 Group:    Applications/System
 License:  GPLv2+
 URL:      http://yumex.dk
-Source0:  https://github.com/timlau/yumex-dnf/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0:  https://github.com/agrez/yumex-dnf/archive/%{commit}.tar.gz#/%{name}-%{version}-%{commit_short}.tar.gz
 
 BuildArch: noarch
 BuildRequires: desktop-file-utils
@@ -28,8 +31,7 @@ Graphical package tool for maintain packages on the system
 
 
 %prep
-%setup -q
-
+%setup -n %{name}-%{commit}
 
 %build
 make %{?_smp_mflags}
@@ -66,9 +68,12 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 %{_datadir}/appdata/*.xml
 
 %changelog
+* Mon Aug 29 2016 Vaughan <devel at agrez dot net> 4.3.3-3.c110fa1
+- Temporarily pull arm and release fixes from my github repo
+- Sync to latest git commit: c110fa1efee9582f98da752db28ec59f10596fe4
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.3.3-2
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
 
 * Wed May 11 2016 Tim Lauridsen <timlau@fedoraproject.org> 4.3.3-1
 - bumped release to 4.3.3 (dev)
