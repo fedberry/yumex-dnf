@@ -1,17 +1,18 @@
-%global     commit c110fa1efee9582f98da752db28ec59f10596fe4
+%global     commit d3623810f35510df88e939459780990b40a859d2
 %global     commit_short %(c=%{commit}; echo ${c:0:7})
 
 %global appname yumex
 
 Name:     %{appname}-dnf
 Version:  4.3.3
-Release:  3.%{commit_short}%{?dist}
+Release:  4.%{commit_short}%{?dist}
 Summary:  Yum Extender graphical package management tool
 
 Group:    Applications/System
 License:  GPLv2+
 URL:      http://yumex.dk
-Source0:  https://github.com/agrez/yumex-dnf/archive/%{commit}.tar.gz#/%{name}-%{version}-%{commit_short}.tar.gz
+Source0:  https://github.com/timlau/yumex-dnf/archive/%{commit}.tar.gz#/%{name}-%{version}-%{commit_short}.tar.gz
+Patch0:   0001-buildfix-de.po.patch
 
 BuildArch: noarch
 BuildRequires: desktop-file-utils
@@ -32,6 +33,7 @@ Graphical package tool for maintain packages on the system
 
 %prep
 %setup -n %{name}-%{commit}
+%patch0 -p1
 
 %build
 make %{?_smp_mflags}
@@ -68,6 +70,11 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 %{_datadir}/appdata/*.xml
 
 %changelog
+* Tue Feb 14 2017 Vaughan <devel at agrez dot net> 4.3.3-4.d362381
+- Switch back to upstream repo (https://github.com/timlau/yumex-dnf)
+- Sync to latest git commit: d3623810f35510df88e939459780990b40a859d2
+- Add de.po build fix (Patch0)
+
 * Mon Aug 29 2016 Vaughan <devel at agrez dot net> 4.3.3-3.c110fa1
 - Temporarily pull arm and release fixes from my github repo
 - Sync to latest git commit: c110fa1efee9582f98da752db28ec59f10596fe4

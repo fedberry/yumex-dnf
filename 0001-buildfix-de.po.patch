@@ -1,0 +1,37 @@
+From 32fb9e545e65a59d2779cc8afeba8087e6895466 Mon Sep 17 00:00:00 2001
+Message-Id: <32fb9e545e65a59d2779cc8afeba8087e6895466.1487080146.git.devel@agrez.net>
+From: Vaughan Agrez <devel@agrez.net>
+Date: Tue, 14 Feb 2017 21:48:31 +0800
+Subject: [PATCH] Build fix for:
+
+de.po:451: 'msgid' and 'msgstr' entries do not both begin with '\n'
+de.po:478: 'msgid' and 'msgstr' entries do not both begin with '\n'
+---
+ po/de.po | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/po/de.po b/po/de.po
+index ab96388..cac6481 100644
+--- a/po/de.po
++++ b/po/de.po
+@@ -448,7 +448,7 @@ msgstr "Keine Information über Aktualisierungen des Paketes verfügbar"
+ msgid ""
+ "\n"
+ "Fedora Updates:"
+-msgstr "Fedora Aktualisierungen:"
++msgstr "\nFedora Aktualisierungen:"
+ 
+ #: ../src/yumex/gui/widgets.py:661
+ msgid "Release"
+@@ -475,7 +475,7 @@ msgstr "Keine Informationen über die Änderungshistorie dieses Pakets verfügba
+ msgid ""
+ "\n"
+ "Online Changelog:"
+-msgstr "Online Änderungshistorie:"
++msgstr "\nOnline Änderungshistorie:"
+ 
+ #: ../src/yumex/gui/widgets.py:741
+ msgid "No filelist information is available"
+-- 
+2.9.3
+
